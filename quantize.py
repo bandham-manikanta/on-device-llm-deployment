@@ -9,7 +9,6 @@ import time
 from pathlib import Path
 
 from huggingface_hub import snapshot_download
-from llama_cpp import Llama
 
 logging.basicConfig(
     level=logging.INFO,
@@ -89,28 +88,7 @@ def main():
     logger.info(" - f16 GGUF: %s", GGUF_F16_MODEL_PATH)
     logger.info(" - Q4_K_M GGUF: %s", GGUF_Q4_MODEL_PATH)
 
-def test_model(model_path, input_prompt):
-    """Helper for testing model performance"""
-    llm = Llama(model_path=str(model_path), n_ctx=512, n_threads=4)
-    prompt = (
-        "<|im_start|>system\nYou are a helpful, concise assistant.<|im_end|>\n"
-        f"<|im_start|>user\n{input_prompt}\n<|im_end|>\n"
-        "<|im_start|>assistant\n"
-    )
-
-    _ = llm(prompt=prompt, max_tokens=8, temperature=0.7)
-
-    # Timed run
-    t0 = time.perf_counter()
-    out = llm(prompt=prompt, max_tokens=128, temperature=0.7)
-    t1 = time.perf_counter()
-
-    text = out["choices"][0]["text"]
-    tokens_est = len(text.split())  # rough tokens count
-    elapsed = t1 - t0
-    logger.info("Output: %s\nTime: %.2f sec, %s tokens, Approx tok/s: %.2f", text, elapsed, tokens_est, tokens_est / elapsed)
 
 if __name__ == "__main__":
     main()
     print('GGUF_Q4_MODEL_PATH', GGUF_Q4_MODEL_PATH)
-    test_model(GGUF_Q4_MODEL_PATH, "Hi.")

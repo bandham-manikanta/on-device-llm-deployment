@@ -14,7 +14,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         ndk {
             // Add NDK properties if wanted, e.g.
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64", "x86")
+            abiFilters += listOf("arm64-v8a")
         }
         externalNativeBuild {
             cmake {
