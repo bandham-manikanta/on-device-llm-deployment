@@ -10,10 +10,8 @@ This Android app loads quantized LLM models (like Qwen2.5-1.5B) and runs them lo
 
 | Q4 Model Demo | Q3 Model Demo |
 |---|---|
-| <video width="400" height="800" controls><source src="demos/Q4_K_M.mp4" type="video/mp4">Your browser does not support the video tag.</video> | <video width="400" height="800" controls><source src="demos/Q3_K_M.mp4" type="video/mp4">Your browser does not support the video tag.</video> |
+| ![Q4 Model Demo](demos/Q4_K_M.gif) | ![Q3 Model Demo](demos/Q3_K_M.gif) |
 | *Q4 quantized model - Higher quality responses (2.21 TPS)* | *Q3 quantized model - Faster loading, lower memory (2.13 TPS)* |
-
----------
 
 ## Performance Results
 
@@ -68,7 +66,7 @@ The project has three main parts:
 #### Steps:
 1. **Clone this repository**
    ```bash
-   git clone [URL will be inserted later]
+   git clone https://github.com/bandham-manikanta/on-device-llm-deployment
    ```
 
 2. **Build llama.cpp**
