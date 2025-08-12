@@ -1,0 +1,7 @@
+*.gguf
+*.GGUF
+llama.cpp/artifacts/
+llama.cpp/.devops/
+llama.cpp/.github/
+llama.cpp/docs/
+llama.cpp/tests/

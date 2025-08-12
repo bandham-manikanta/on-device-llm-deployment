@@ -1,0 +1,96 @@
+
+./gradlew clean && rm -rf app/.cxx llama/.cxx && ./gradlew assembleDebug && ./gradlew installDebug
+
+
+
+
+
+git clone https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct # but i want to do this in HF modules
+
+python llama.cpp/convert_hf_to_gguf.py ./Llama-3.2-1B-Instruct/ --outfile llama.cpp/models/Llama-3.2-1B-Instruct_BF16.gguf --outtype bf16
+
+llama.cpp/build/bin/llama-quantize llama.cpp/models/Llama-3.2-1B-Instruct_BF16.gguf llama.cpp/examples/llama.android/app/src/main/assets/models/Llama-3.2-1B-Instruct_Q4KM.gguf Q4_K_M
+
+
+pip install huggingface_hub safetensors 
+
+pip install llama-cpp-python
+
+
+export HUGGINGFACE_HUB_TOKEN=hf_xxx
+
+
+
+git clone https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct # but i want to do this in HF modules
+
+python llama.cpp/convert_hf_to_gguf.py ./Llama-3.2-1B-Instruct/ --outfile llama.cpp/models/Llama-3.2-1B-Instruct_BF16.gguf --outtype bf16
+
+llama.cpp/build/bin/llama-quantize llama.cpp/models/Llama-3.2-1B-Instruct_BF16.gguf llama.cpp/examples/llama.android/app/src/main/assets/models/Llama-3.2-1B-Instruct_Q4KM.gguf Q4_K_M
+
+
+
+
+## Steps
+
+# Quantize a model to Int4:
+## Prerequisites:
+- install Cmake and xxxxx: Command - `sudo apt install Cmake`
+
+1. Clone this repo
+- git clone 
+- cd llm_edge_deployment
+2. Compile the llama.cpp files (need correct this with right words): This is tested on Ubuntu 24.x
+- cd llama.cpp && cmake -B build && cmake --build build --config Release
+- Verify commands: you should see llama-cli and llama-quantize binary files in llama.cpp/build/bin/
+3. set hugging face authentication token in the terminal: from here https://
+- expore HUGGINGFACE_HUB_TOKEN=<token>
+4. Now run run llm_edge_deployment/quantize.py file
+    - change the directory to llm_edge_deployment
+    - run `pip install -r requirements.txt`
+    = run `python quantize.py`
+
+
+# Build and deploy Android app:
+- In terminal, navigate to llm_edge_deployment/llama.android/examples/llama.android/
+- ./gradlew clean && ./gradlew assembleDebug
+- Make sure the phone is connected and the following settings enabled.
+    - Developer mode 
+    - install via usb debugging.
+./gradlew installDebug
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+./gradlew installDebug --parallel --build-cache --configure-on-demand
+
+
+
+*Small Prompt:*
+What are the trade-offs of INT8 vs FP16 inference?
+
+
+*Medium Prompt:*
+I've fine-tuned a Llama 2-7B model using LoRA for compliance document analysis. The model achieves 79% accuracy but I want to deploy it on edge devices. What quantization strategies would you recommend to reduce model size while preserving performance on domain-specific tasks?
+
+
+*Large Prompt:*
+I'm building a production ML system for on-device LLM inference on Android. The system needs to handle real-time conversations while monitoring performance metrics like TTFT, TPS, and memory usage. Currently using Qwen2.5-1.5B with Q4 quantization achieving 340ms TTFT and 8.2 TPS on consumer hardware. However, I'm concerned about thermal throttling during extended conversations and battery consumption. What are the best practices for implementing thermal management, optimizing memory allocation patterns, and balancing inference quality with power efficiency? Also, how should I design the benchmarking system to capture meaningful performance degradation patterns over time?
+
+
+
+
+adb pull /sdcard/Android/data/com.example.llama/files/llm_benchmark.log ./
+
+
+
+
